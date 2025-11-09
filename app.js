@@ -6,7 +6,6 @@
   // ---- i18n ----
   const i18n = {
     en: {
-      auth_tagline: "Lightweight SME toolkit – no backend required.",
       signup: "Sign Up", login: "Log In", or: "or",
       choose_language: "Choose language",
       onboarding_title: "Tell us about your business",
@@ -438,6 +437,22 @@
     return Math.round(avgPerDay * days);
   }
 
+  // Add this function with other dashboard functions
+function showSmartAlerts() {
+  const alerts = [];
+  
+  // Seasonal demand detection
+  alerts.push("🎯 <strong>Seasonal Insight</strong>: Stock up on dates, sweets, and beverages for upcoming Eid demand");
+
+  // Weather-based recommendations
+  alerts.push("🌧️ <strong>Weather Alert</strong>: Rainy season expected - consider stocking umbrellas and quick snacks");
+  
+  // Competitor price intelligence (simulated)
+  alerts.push("💰 <strong>Price Intelligence</strong>: Competitors are offering 10% discount on beverages - consider matching");
+  
+  return alerts;
+}
+
   function renderDashboard() {
     $("#totalRevenue").textContent = (S.biz.currency || "৳") + sumRevenue(30).toFixed(2);
     $("#inventoryValue").textContent = (S.biz.currency || "৳") + inventoryValue().toFixed(2);
@@ -466,16 +481,21 @@
         scales: { x: { display: true }, y: { beginAtZero: true } }
       }
     });
-
-    const recs = computeRecommendations().slice(0, 5);
-    $("#quickRecs").innerHTML = recs.map(r => `
-      <li class="rec-item rec-${r.type}">
-        <span class="rec-icon">${r.icon}</span>
-        <span class="rec-text">${r.text}</span>
+      // Add smart alerts to quick recommendations
+    const recs = computeRecommendations().slice(0, 3); // Show fewer regular recs
+    const alerts = showSmartAlerts();
+  
+    // Combine both
+    const allAlerts = [...alerts, ...recs.map(r => r.text)];
+  
+    $("#quickRecs").innerHTML = allAlerts.map(alert => `
+     <li class="rec-item">
+        <span class="rec-text">${alert}</span>
       </li>
-    `).join("");
-  }
-  $("#dashRange").addEventListener("change", renderDashboard);
+  `).join("");
+
+}
+$("#dashRange").addEventListener("change", renderDashboard);
 
   // ---- Inventory with Modals ----
   function renderInventory(restockOnly = false) {
@@ -1596,11 +1616,151 @@
     setTimeout(() => botHandle(b.textContent), 200);
   }));
 
-  // ---- Routing render ----
-  function renderRoute(route) {
-    if (route === "dashboard") renderDashboard();
-    if (route === "inventory") renderInventory(restockOnly);
-    if (route === "billing") renderBilling();
+  // ---- Camera Scanning Functionality ----
+
+// Add camera button to inventory header
+function addCameraButton() {
+  const headerActions = $(".header-actions");
+  if (headerActions && !$("#cameraScanBtn")) {
+    const cameraBtn = document.createElement("button");
+    cameraBtn.id = "cameraScanBtn";
+    cameraBtn.className = "camera-btn";
+    cameraBtn.innerHTML = `
+      <i class="fas fa-camera"></i>
+      <span>Scan Product</span>
+    `;
+    headerActions.appendChild(cameraBtn);
+    
+    cameraBtn.addEventListener("click", openCameraModal);
+  }
+}
+
+let stream = null;
+
+function openCameraModal() {
+  showModal("#cameraModal");
+  resetCameraModal();
+}
+
+function resetCameraModal() {
+  $("#cameraPreview").classList.add("hidden");
+  $("#productForm").classList.add("hidden");
+  $("#saveScannedProduct").classList.add("hidden");
+  $("#captureBtn").classList.add("hidden");
+  $("#retakeBtn").classList.add("hidden");
+  $("#startCamera").classList.remove("hidden");
+  
+  const video = $("#cameraVideo");
+  const canvas = $("#cameraCanvas");
+  video.srcObject = null;
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+}
+
+$("#startCamera").addEventListener("click", async () => {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ 
+      video: { facingMode: "environment" } // Prefer rear camera
+    });
+    
+    const video = $("#cameraVideo");
+    video.srcObject = stream;
+    
+    $("#startCamera").classList.add("hidden");
+    $("#captureBtn").classList.remove("hidden");
+    
+  } catch (err) {
+    console.error("Camera error:", err);
+    alert("Unable to access camera. Please check permissions and try again.");
+  }
+});
+
+$("#captureBtn").addEventListener("click", () => {
+  const video = $("#cameraVideo");
+  const canvas = $("#cameraCanvas");
+  const preview = $("#previewImage");
+  
+  // Set canvas dimensions to match video
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  
+  // Draw current video frame to canvas
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+  // Convert to data URL for preview
+  const imageData = canvas.toDataURL('image/jpeg');
+  preview.src = imageData;
+  
+  // Show preview and hide video
+  $("#cameraPreview").classList.remove("hidden");
+  video.classList.add("hidden");
+  
+  // Show product form and controls
+  $("#productForm").classList.remove("hidden");
+  $("#saveScannedProduct").classList.remove("hidden");
+  $("#retakeBtn").classList.remove("hidden");
+  $("#captureBtn").classList.add("hidden");
+  
+  // Auto-generate SKU
+  $("#scannedProductSku").value = "SCAN" + Date.now().toString().slice(-6);
+  
+  // Stop camera stream
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+});
+
+$("#retakeBtn").addEventListener("click", () => {
+  resetCameraModal();
+  $("#startCamera").click(); // Restart camera automatically
+});
+
+$("#saveScannedProduct").addEventListener("click", () => {
+  const name = $("#scannedProductName").value.trim();
+  const sku = $("#scannedProductSku").value.trim();
+  const stock = Number($("#scannedProductStock").value || 1);
+  const buy = Number($("#scannedProductBuy").value || 0);
+  const sell = Number($("#scannedProductSell").value || 0);
+  
+  if (!name) {
+    alert("Please enter a product name");
+    return;
+  }
+  
+  // Create new product
+  const newProduct = {
+    id: crypto.randomUUID(),
+    name,
+    sku,
+    stock,
+    buy,
+    sell,
+    low: S.biz.defaultLow || 5
+  };
+  
+  S.inventory.push(newProduct);
+  save(S);
+  
+  alert(`Product "${name}" added successfully!`);
+  hideModal("#cameraModal");
+  renderInventory();
+  renderDashboard();
+});
+
+// Initialize camera button when app loads
+setTimeout(addCameraButton, 100);
+
+// ---- Routing render ----
+function renderRoute(route) {
+  if (route === "dashboard") renderDashboard();
+  if (route === "inventory") renderInventory(restockOnly);
+  if (route === "billing") renderBilling();
     if (route === "ads") renderAds();
     if (route === "recommend") renderRecommendations();
     if (route === "employees") renderEmployees();

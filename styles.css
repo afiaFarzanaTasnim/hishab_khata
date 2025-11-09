@@ -1277,3 +1277,58 @@ input:checked + .slider:before {
     flex-shrink: 0;
   }
 }
+
+/* Camera button styles */
+.camera-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.camera-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.camera-btn:active {
+  transform: translateY(0);
+}
+
+/* Camera modal styles */
+#cameraModal video {
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius-md);
+  background: #000;
+}
+
+#cameraModal canvas {
+  display: none;
+}
+
+.camera-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.camera-preview {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.camera-preview img {
+  max-width: 200px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+}

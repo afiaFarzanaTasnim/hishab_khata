@@ -48,7 +48,9 @@ body {
 .auth-overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #17392d 0%, #b2dac0 100%);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("bg.png") center / cover no-repeat;
   display: none;
   align-items: center;
   justify-content: center;

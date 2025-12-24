@@ -1,0 +1,61 @@
+<section id="page-dashboard" class="page show">
+  <div class="page-header">
+    <h2 data-i18n="dashboard">Dashboard</h2>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon revenue">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="stat-content">
+        <h3 data-i18n="total_revenue">Total revenue (last 30d)</h3>
+        <div class="stat-value" id="totalRevenue">৳0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon forecast">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <div class="stat-content">
+        <h3 data-i18n="last7_forecast">Forecast next 7 days</h3>
+        <div class="stat-value" id="forecast7">৳0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon inventory">
+        <i class="fas fa-warehouse"></i>
+      </div>
+      <div class="stat-content">
+        <h3 data-i18n="total_inventory_value">Inventory value</h3>
+        <div class="stat-value" id="inventoryValue">৳0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="stat-content">
+        <h3 data-i18n="low_stock_count">Low-stock items</h3>
+        <div class="stat-value" id="lowStockCount">0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3 data-i18n="sales_trend">Sales trend</h3>
+      <select id="dashRange" class="select-compact">
+        <option value="7">7d</option>
+        <option value="30" selected>30d</option>
+        <option value="90">90d</option>
+      </select>
+    </div>
+    <canvas id="salesChart" height="120"></canvas>
+  </div>
+
+  <div class="card">
+    <h3 data-i18n="quick_recommendations">Quick recommendations</h3>
+    <ul id="quickRecs" class="recs-list"></ul>
+  </div>
+</section>

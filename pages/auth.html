@@ -1,0 +1,118 @@
+<!-- Auth Modal -->
+<div id="authModal" class="auth-overlay show">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <img src="assets/logo.png" alt="Logo" class="logo-icon">
+          <h1>হিসাব-খাতা</h1>
+        </div>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="signup" data-i18n="signup">Sign Up</button>
+        <button class="auth-tab" data-tab="login" data-i18n="login">Log In</button>
+      </div>
+
+      <div id="signupPane" class="auth-pane">
+        <div class="form-group">
+          <label data-i18n="business_name_label">Business name</label>
+          <div class="input-icon">
+            <i class="fas fa-briefcase"></i>
+            <input id="signupBizName" placeholder="Acme Mart" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="owner_email_label">Owner email</label>
+          <div class="input-icon">
+            <i class="fas fa-envelope"></i>
+            <input id="signupEmail" type="email" placeholder="owner@shop.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="owner_password_label">Password</label>
+          <div class="input-icon">
+            <i class="fas fa-lock"></i>
+            <input id="signupPass" type="password" placeholder="••••••••" />
+          </div>
+        </div>
+        <div class="checkbox-group">
+          <input id="tosAgree" type="checkbox" />
+          <label for="tosAgree" data-i18n="tos_text">Any profit or loss won't be our liability.</label>
+        </div>
+        <button id="signupBtn" class="btn-primary" data-i18n="create_business">Create business</button>
+      </div>
+
+      <div id="loginPane" class="auth-pane hidden">
+        <div class="form-group">
+          <label data-i18n="owner_email_label">Owner email</label>
+          <div class="input-icon">
+            <i class="fas fa-envelope"></i>
+            <input id="loginEmail" type="email" placeholder="owner@shop.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="owner_password_label">Password</label>
+          <div class="input-icon">
+            <i class="fas fa-lock"></i>
+            <input id="loginPass" type="password" placeholder="••••••••" />
+          </div>
+        </div>
+        <button id="loginBtn" class="btn-primary" data-i18n="login">Log In</button>
+      </div>
+
+      <div class="auth-divider">
+        <span data-i18n="or">or</span>
+      </div>
+
+      <div class="lang-selector">
+        <i class="fas fa-globe"></i>
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="bn">বাংলা</option>
+        </select>
+      </div>
+
+      <div id="onboardingStep" class="onboarding hidden">
+        <h3 data-i18n="onboarding_title">Tell us about your business</h3>
+        <div class="form-group">
+          <label data-i18n="category_label">Business category</label>
+          <input id="bizCategory" list="categorySuggestions" placeholder="Grocery, Pharmacy, Electronics..." />
+          <datalist id="categorySuggestions"></datalist>
+        </div>
+
+        <div class="progress-flags">
+          <div class="flag-item">
+            <i class="fas fa-globe"></i>
+            <span data-i18n="flag_language">Language</span>
+            <i id="flagLang" class="fas fa-times flag-status"></i>
+          </div>
+          <div class="flag-item">
+            <i class="fas fa-tag"></i>
+            <span data-i18n="flag_category">Category</span>
+            <i id="flagCategory" class="fas fa-times flag-status"></i>
+          </div>
+          <div class="flag-item">
+            <i class="fas fa-check-circle"></i>
+            <span data-i18n="flag_terms">Terms accepted</span>
+            <i id="flagTos" class="fas fa-times flag-status"></i>
+          </div>
+        </div>
+
+        <div class="csv-importer">
+          <p data-i18n="importer_prompt">Do you have previous inventory data?</p>
+          <input id="csvFile" type="file" accept=".csv" class="hidden" />
+          <label for="csvFile" class="btn-secondary">
+            <i class="fas fa-upload"></i>
+            <span data-i18n="choose_file">Choose CSV File</span>
+          </label>
+          <button id="importCsvBtn" class="btn-secondary" data-i18n="import_csv">Import CSV</button>
+          <button id="skipImportBtn" class="btn-ghost" data-i18n="skip">Skip</button>
+          <p class="hint" data-i18n="csv_hint">Expected columns: name, sku, stock, buy_price, sell_price,
+            low_stock(optional)</p>
+          <pre id="csvPreview" class="preview hidden"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<section id="page-ads" class="page">
+  <div class="page-header">
+    <h2 data-i18n="advertising">Advertising</h2>
+  </div>
+
+  <div class="grid-two">
+    <div class="card">
+      <h3 data-i18n="ad_campaigns">Ad campaigns</h3>
+      <div class="form-grid">
+        <input id="adName" placeholder="Campaign name" />
+        <input id="adSpend" type="number" min="0" placeholder="Invested amount" />
+        <input id="adStart" type="date" />
+        <button id="addAdBtn" class="btn-primary">
+          <i class="fas fa-plus"></i>
+          <span data-i18n="add">Add</span>
+        </button>
+      </div>
+      <div id="adsList" class="items-list"></div>
+    </div>
+    <div class="card">
+      <h3 data-i18n="ad_effect">Effect: before vs after</h3>
+      <canvas id="adChart" height="140"></canvas>
+      <p class="hint" data-i18n="ad_hint">Compares 30 days before vs 30 days after the campaign start date.</p>
+    </div>
+  </div>
+</section>

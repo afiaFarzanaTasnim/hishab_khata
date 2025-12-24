@@ -1,0 +1,63 @@
+<aside class="sidebar">
+  <div class="brand">
+    <img src="assets/logo.png" alt="Logo" class="logo-icon">
+    <div>
+      <div class="bizname" id="sidebarBizName">হিসাব-খাতা</div>
+      <small id="roleLabel">Admin</small>
+    </div>
+  </div>
+
+  <nav>
+    <button data-route="dashboard" class="nav-btn active">
+      <i class="fas fa-chart-line"></i>
+      <span data-i18n="dashboard">Dashboard</span>
+    </button>
+    <button data-route="inventory" class="nav-btn">
+      <i class="fas fa-boxes"></i>
+      <span data-i18n="inventory">Inventory</span>
+    </button>
+    <button data-route="billing" class="nav-btn">
+      <i class="fas fa-file-invoice-dollar"></i>
+      <span data-i18n="billing">Billing</span>
+    </button>
+    <button data-route="ads" class="nav-btn">
+      <i class="fas fa-bullhorn"></i>
+      <span data-i18n="advertising">Advertising</span>
+    </button>
+    <button data-route="recommend" class="nav-btn">
+      <i class="fas fa-lightbulb"></i>
+      <span data-i18n="recommendations">Recommendations</span>
+    </button>
+    <button data-route="employees" class="nav-btn">
+      <i class="fas fa-users"></i>
+      <span data-i18n="employees">Employees</span>
+    </button>
+    <button data-route="settings" class="nav-btn">
+      <i class="fas fa-cog"></i>
+      <span data-i18n="settings">Settings</span>
+    </button>
+    <button id="logoutBtn" class="btn-danger btn-small">
+      <i class="fas fa-sign-out-alt"></i>
+      <span data-i18n="logout">Log Out</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button id="exportBtn" class="btn-ghost btn-small">
+      <i class="fas fa-download"></i>
+      <span data-i18n="export_data">Export Data</span>
+    </button>
+    <button id="importBtn" class="btn-ghost btn-small">
+      <i class="fas fa-upload"></i>
+      <span data-i18n="import_data">Import Data</span>
+    </button>
+    <input id="importJson" type="file" accept="application/json" class="hidden" />
+    <div class="theme-toggle">
+      <label class="switch">
+        <input type="checkbox" id="themeSwitch" />
+        <span class="slider"></span>
+      </label>
+      <span class="switch-label" data-i18n="dark_mode">Dark mode</span>
+    </div>
+  </div>
+</aside>

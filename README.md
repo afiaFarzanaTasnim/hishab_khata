@@ -1,13 +1,13 @@
-# Bazaar — SME Frontend
+# Hisab_Khata — SME Frontend
 
-**Bazaar** is an **AI-powered business assistant and advisor** designed to help small and medium enterprises (SMEs) manage, analyze, and grow their businesses — all in one place.  
+**Hisab_Khata** is an **AI-powered business assistant and advisor** designed to help small and medium enterprises (SMEs) manage, analyze, and grow their businesses — all in one place.  
 It’s your intelligent partner that works **24/7**, speaks **Bangla and English**, and helps you make smarter business decisions without needing a technical background.
 
 ---
 
 ## Project Overview
 
-This repository contains the **frontend** of *Bazaar — The Smart Business Companion*.  
+This repository contains the **frontend** of *Hisab_Khata — The Smart Business Companion*.  
 Currently, it focuses on the **user interface** and **business onboarding flow**, allowing users to sign up, log in, and upload their business data.
 
 Future updates will integrate AI-based analytics, demand forecasting, and personalized recommendations.
@@ -36,7 +36,7 @@ Future updates will integrate AI-based analytics, demand forecasting, and person
 ## Future Goals (Our Vision)
 
 We’re building a **full AI-powered business management system**.  
-Upcoming versions of *Bazaar* will include:
+Upcoming versions of *Hisab_Khata* will include:
 
 ### AI Business Insights
 - AI analysis of uploaded data to build predictive models.  
@@ -75,10 +75,10 @@ To set up the project locally, follow these steps:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/afiaFarzanaTasnim/Bazaar.git
+git clone https://github.com/afiaFarzanaTasnim/Hisab_Khata.git
 
 # 2. Navigate to the project folder
-cd Bazaar
+cd Hisab_Khata
 
 # 3. Install dependencies
 npm install
@@ -110,6 +110,6 @@ This project is open source under the **MIT License**.
 ---
 
 
-> *“We’re building Bazaar — the business assistant you can’t afford to hire, but can’t afford to live without.”* 💡  
+> *“We’re building Hisab_Khata — the business assistant you can’t afford to hire, but can’t afford to live without.”* 💡  
 
 

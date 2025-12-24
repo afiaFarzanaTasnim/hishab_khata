@@ -1,0 +1,61 @@
+<section id="page-billing" class="page">
+  <div class="page-header">
+    <h2 data-i18n="billing">Billing</h2>
+  </div>
+
+  <div class="billing-grid">
+    <div class="card">
+      <h3 data-i18n="invoice_builder">Invoice builder</h3>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input id="billSearch" placeholder="Search item..." data-i18n-placeholder="search_item" />
+      </div>
+      <div class="form-group">
+        <label>Customer name</label>
+        <input id="billCustomer" placeholder="Customer name" />
+      </div>
+      <div id="billResults" class="items-list"></div>
+      <div class="divider"></div>
+      <div id="billCart" class="cart-items"></div>
+      <div class="cart-footer">
+        <button id="clearCartBtn" class="btn-ghost" data-i18n="clear">Clear</button>
+        <div class="cart-total">
+          <span data-i18n="total">Total</span>: <strong id="billTotal">৳0</strong>
+          <button id="checkoutBtn" class="btn-primary">
+            <i class="fas fa-check"></i>
+            <span data-i18n="checkout">Checkout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="invoice_template">Invoice template</h3>
+      <div class="form-grid">
+        <input id="tplName" placeholder="Store name" />
+        <input id="tplAddr" placeholder="Address" />
+        <input id="tplPhone" placeholder="Phone" />
+        <input id="tplTax" placeholder="Tax %" type="number" min="0" max="100" />
+        <input id="tplCurrency" placeholder="Currency symbol" maxlength="3" />
+        <input id="tplNote" placeholder="Footer note" />
+        <label class="file-upload">
+          <input id="tplLogo" type="file" accept="image/*" class="hidden">
+          <i class="fas fa-image"></i>
+          <span data-i18n="upload_logo">Upload logo</span>
+        </label>
+        <button id="saveTplBtn" class="btn-secondary" data-i18n="save_template">Save template</button>
+      </div>
+      <div class="invoice-actions">
+        <button id="downloadPdfBtn" class="btn-primary">
+          <i class="fas fa-file-pdf"></i>
+          Download PDF
+        </button>
+        <button id="viewReportBtn" class="btn-secondary">
+          <i class="fas fa-chart-bar"></i>
+          View Sales Report
+        </button>
+      </div>
+      <div id="tplPreview" class="invoice-preview"></div>
+    </div>
+  </div>
+</section>

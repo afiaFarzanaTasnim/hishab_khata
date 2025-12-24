@@ -1,0 +1,29 @@
+<section id="page-inventory" class="page">
+  <div class="page-header">
+    <h2 data-i18n="inventory">Inventory</h2>
+    <div class="header-actions">
+      <button id="addProductBtn" class="btn-primary">
+        <i class="fas fa-plus"></i>
+        <span data-i18n="add_product">Add product</span>
+      </button>
+      <button id="restockViewBtn" class="btn-secondary">
+        <i class="fas fa-filter"></i>
+        <span data-i18n="restock_only">Restock-only view</span>
+      </button>
+      <button id="cameraScanBtn" class="camera-btn">
+        <i class="fas fa-camera"></i>
+        <span>Scan Product</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input id="invSearch" placeholder="Search products..." data-i18n-placeholder="search_products" />
+    </div>
+    <div class="table-responsive">
+      <div id="inventoryTable"></div>
+    </div>
+  </div>
+</section>

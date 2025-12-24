@@ -1,0 +1,44 @@
+<section id="page-settings" class="page">
+  <div class="page-header">
+    <h2 data-i18n="settings">Settings</h2>
+  </div>
+
+  <div class="card">
+    <h3 data-i18n="app_settings">App settings</h3>
+    <div class="settings-grid">
+      <div class="form-group">
+        <label data-i18n="language">Language</label>
+        <select id="settingsLang">
+          <option value="en">English</option>
+          <option value="bn">বাংলা</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="currency_symbol">Currency symbol</label>
+        <input id="settingsCurrency" maxlength="3" placeholder="৳" />
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="default_low_stock">Default low stock threshold</label>
+        <input id="settingsLowStock" type="number" min="0" value="5" />
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="invite_employee">Invite employee</label>
+        <div class="input-group">
+          <input id="inviteEmail" type="email" placeholder="email@domain.com" />
+          <button id="createInviteBtn" class="btn-secondary" data-i18n="create_invite">Create invite</button>
+        </div>
+        <pre id="invitePreview" class="preview"></pre>
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <button id="resetAppBtn" class="btn-danger">
+        <i class="fas fa-trash-alt"></i>
+        <span data-i18n="reset_app">Reset app (clear data)</span>
+      </button>
+    </div>
+  </div>
+</section>

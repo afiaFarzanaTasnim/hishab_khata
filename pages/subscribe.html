@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription – Hisab Khata</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #3f7f35;
+            --secondary: #b09245;
+            --bg: #f2f6ef;
+            --card: #ffffff;
+            --text: #2f3e2d;
+            --muted: #6b8b60;
+            --bkash: #e2136e;
+            --nagad: #f8a61c;
+            --bank: #2a5caa;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 40px;
+            color: var(--text);
+        }
+
+        .wrapper {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #c1a251, #a88942);
+            padding: 10px 18px;
+            color: #fff;
+            font-size: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: .3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            animation: fadeIn .6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .features {
+            margin-top: 20px;
+            padding-left: 0;
+        }
+
+        .features li {
+            list-style: none;
+            margin-bottom: 12px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .status {
+            margin-top: 25px;
+            background: #eaf4e3;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Plan Box */
+        .plan-box {
+            text-align: center;
+        }
+
+        .plan-box h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 34px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 15px 0 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: .3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ebcb79, #a5873c);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #444;
+        }
+
+        .btn-bkash {
+            background: linear-gradient(135deg, #e2136e, #c0105e);
+            color: white;
+        }
+
+        .btn-nagad {
+            background: linear-gradient(135deg, #f8a61c, #e6950c);
+            color: white;
+        }
+
+        .btn-bank {
+            background: linear-gradient(135deg, #2a5caa, #1e4a8a);
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 30px;
+            width: 380px;
+            border-radius: 14px;
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .modal-box .btn {
+            margin-bottom: 10px;
+        }
+
+        .payment-methods {
+            margin: 25px 0;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            background: #f9f9f9;
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background: #f0f7ef;
+        }
+
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .payment-icon.bkash {
+            background-color: var(--bkash);
+        }
+
+        .payment-icon.nagad {
+            background-color: var(--nagad);
+        }
+
+        .payment-icon.bank {
+            background-color: var(--bank);
+        }
+
+        .payment-details {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            display: none;
+        }
+
+        .payment-details h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .payment-details p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .payment-instruction {
+            background: #fff9e6;
+            border-left: 4px solid var(--secondary);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .duration-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .duration-btn {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: 600;
+        }
+
+        .duration-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .duration-btn.active {
+            border-color: var(--primary);
+            background: #f0f7ef;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .payment-actions .btn {
+            flex: 1;
+        }
+
+        .payment-success {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .payment-success i {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="page-header">
+            <h1 class="page-title">Subscription</h1>
+            <a href="../index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+        </div>
+
+        <div class="container">
+
+            <!-- Info -->
+            <div class="card">
+                <h3><i class="fa-solid fa-circle-info"></i> Why Upgrade?</h3>
+                <p>Upgrade to <b>Hisab Khata Premium</b> and unlock powerful tools to manage your business efficiently.
+                </p>
+
+                <ul class="features">
+                    <li><i class="fa-solid fa-check"></i> Unlimited invoices & products</li>
+                    <li><i class="fa-solid fa-check"></i> Secure cloud backup</li>
+                    <li><i class="fa-solid fa-check"></i> Business analytics</li>
+                    <li><i class="fa-solid fa-check"></i> PDF export & reports</li>
+                    <li><i class="fa-solid fa-check"></i> Priority customer support</li>
+                </ul>
+
+                <div class="status" id="statusBox"></div>
+            </div>
+
+            <!-- Plan -->
+            <div class="card plan-box">
+                <h2><i class="fa-solid fa-crown"></i> Premium Plan</h2>
+                <p><b>Free Trial:</b> 90 Days</p>
+                <div class="price">62৳ <span style="font-size:14px;">/ day</span></div>
+
+                <button class="btn btn-primary" onclick="subscribe()">
+                    Activate Subscription
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="payment-popup">
+        <div class="modal-box">
+            <!-- Payment Method Selection -->
+            <div id="method-selection">
+                <h3><i class="fa-solid fa-credit-card"></i> Select Payment Method</h3>
+                <p>Choose your preferred payment method</p>
+
+                <div class="payment-methods">
+                    <div class="payment-method" onclick="selectPaymentMethod('bkash')">
+                        <div class="payment-icon bkash">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0 0 5px 0;">Bkash</h4>
+                            <p style="margin: 0; font-size: 14px; color: #666;">Mobile Banking</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-method" onclick="selectPaymentMethod('nagad')">
+                        <div class="payment-icon nagad">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0 0 5px 0;">Nagad</h4>
+                            <p style="margin: 0; font-size: 14px; color: #666;">Mobile Banking</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-method" onclick="selectPaymentMethod('bank')">
+                        <div class="payment-icon bank">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0 0 5px 0;">Bank Transfer</h4>
+                            <p style="margin: 0; font-size: 14px; color: #666;">Bank Account</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-actions">
+                    <button class="btn btn-secondary" onclick="closePopup()">Cancel</button>
+                    <button class="btn btn-primary" id="continue-btn" disabled
+                        onclick="showDurationSelection()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Duration & Payment Details -->
+            <div id="duration-selection" style="display:none;">
+                <h3 id="payment-title"></h3>
+                <p>Choose your subscription duration</p>
+
+                <div class="duration-buttons">
+                    <div class="duration-btn" onclick="selectDuration(1)">
+                        1 Day<br>
+                        <strong>62৳</strong>
+                    </div>
+                    <div class="duration-btn" onclick="selectDuration(7)">
+                        7 Days<br>
+                        <strong>434৳</strong>
+                    </div>
+                    <div class="duration-btn" onclick="selectDuration(30)">
+                        30 Days<br>
+                        <strong>1860৳</strong>
+                    </div>
+                </div>
+
+                <div class="payment-details" id="bkash-details">
+                    <h4><i class="fa-solid fa-mobile-screen"></i> Bkash Payment</h4>
+                    <p><strong>Step 1:</strong> Dial *247#</p>
+                    <p><strong>Step 2:</strong> Send money to: <strong>01521 345678</strong></p>
+                    <p><strong>Step 3:</strong> Use this reference: <strong>HK2024</strong></p>
+                    <div class="payment-instruction">
+                        <i class="fa-solid fa-lightbulb"></i> Please take a screenshot after payment confirmation
+                    </div>
+                </div>
+
+                <div class="payment-details" id="nagad-details">
+                    <h4><i class="fa-solid fa-wallet"></i> Nagad Payment</h4>
+                    <p><strong>Step 1:</strong> Dial *167#</p>
+                    <p><strong>Step 2:</strong> Send money to: <strong>01521 345678</strong></p>
+                    <p><strong>Step 3:</strong> Use this reference: <strong>HK2024</strong></p>
+                    <div class="payment-instruction">
+                        <i class="fa-solid fa-lightbulb"></i> Please take a screenshot after payment confirmation
+                    </div>
+                </div>
+
+                <div class="payment-details" id="bank-details">
+                    <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer</h4>
+                    <p><strong>Bank:</strong> Dutch Bangla Bank PLC.</p>
+                    <p><strong>Account Name:</strong> Hisab Khata Ltd.</p>
+                    <p><strong>Account Number:</strong> 123 456 789 001</p>
+                    <p><strong>Branch:</strong> Dhanmondi, Dhaka</p>
+                    <p><strong>Routing Number:</strong> 123456789</p>
+                    <div class="payment-instruction">
+                        <i class="fa-solid fa-lightbulb"></i> Send transaction screenshot to support@hisabkhata.com
+                    </div>
+                </div>
+
+                <div class="payment-actions">
+                    <button class="btn btn-secondary" onclick="backToMethod()">← Back</button>
+                    <button class="btn btn-primary" id="pay-btn" disabled onclick="processPayment()">Complete
+                        Payment</button>
+                </div>
+            </div>
+
+            <!-- Payment Success -->
+            <div class="payment-success" id="payment-success">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3>Payment Successful!</h3>
+                <p>Your subscription has been activated.</p>
+                <p>Transaction ID: <strong id="transaction-id"></strong></p>
+                <button class="btn btn-primary" onclick="closePopup()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let selectedPaymentMethod = null;
+        let selectedDuration = null;
+        let paymentInProgress = false;
+
+        // Calculate remaining days of subscription
+        function calculateRemainingDays(expiryDate) {
+            let today = new Date();
+            let expiry = new Date(expiryDate);
+            let diff = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
+            return diff > 0 ? diff : 0;
+        }
+
+        // Load subscription status
+        function loadSubscription() {
+            let sub = JSON.parse(localStorage.getItem("subscription"));
+            const box = document.getElementById("statusBox");
+
+            if (sub) {
+                let daysLeft = calculateRemainingDays(sub.expiry);
+                box.style.display = "block";
+                box.innerHTML = daysLeft > 0
+                    ? `<b>Active Subscription</b><br>Remaining: <b>${daysLeft} days</b>`
+                    : `<b>Subscription Expired</b><br>Please renew to continue`;
+            } else {
+                box.style.display = "none";
+            }
+        }
+
+        // Subscribe function - activate free trial or show payment options
+        function subscribe() {
+            let sub = JSON.parse(localStorage.getItem("subscription"));
+            if (!sub) {
+                // Activate free trial
+                let expiry = new Date();
+                expiry.setDate(expiry.getDate() + 90);
+
+                localStorage.setItem("subscription", JSON.stringify({
+                    start: new Date().toISOString(),
+                    expiry: expiry.toISOString(),
+                    type: "trial"
+                }));
+
+                alert("🎉 90 Days Free Trial Activated!");
+                location.reload();
+            } else {
+                // Show payment modal
+                resetPaymentModal();
+                document.getElementById("payment-popup").style.display = "flex";
+            }
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+
+            // Remove active class from all payment methods
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Add active class to selected method
+            event.currentTarget.classList.add('active');
+
+            // Enable continue button
+            document.getElementById('continue-btn').disabled = false;
+        }
+
+        // Show duration selection after choosing payment method
+        function showDurationSelection() {
+            if (!selectedPaymentMethod) return;
+
+            // Update payment title
+            let title = "";
+            switch (selectedPaymentMethod) {
+                case 'bkash': title = "Pay with Bkash"; break;
+                case 'nagad': title = "Pay with Nagad"; break;
+                case 'bank': title = "Bank Transfer"; break;
+            }
+            document.getElementById('payment-title').innerHTML = `<i class="fa-solid fa-credit-card"></i> ${title}`;
+
+            // Hide method selection, show duration selection
+            document.getElementById('method-selection').style.display = 'none';
+            document.getElementById('duration-selection').style.display = 'block';
+
+            // Show selected payment details
+            document.querySelectorAll('.payment-details').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.getElementById(`${selectedPaymentMethod}-details`).style.display = 'block';
+        }
+
+        // Select duration
+        function selectDuration(days) {
+            selectedDuration = days;
+
+            // Remove active class from all duration buttons
+            document.querySelectorAll('.duration-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Add active class to selected duration
+            event.currentTarget.classList.add('active');
+
+            // Enable pay button
+            document.getElementById('pay-btn').disabled = false;
+
+            // Update button text with amount
+            let amount = 0;
+            switch (days) {
+                case 1: amount = 62; break;
+                case 7: amount = 434; break;
+                case 30: amount = 1860; break;
+            }
+            document.getElementById('pay-btn').innerHTML = `Pay ${amount}৳`;
+        }
+
+        // Process payment
+        function processPayment() {
+            if (!selectedPaymentMethod || !selectedDuration || paymentInProgress) return;
+
+            paymentInProgress = true;
+
+            // Calculate amount and new expiry date
+            let amount = 0;
+            switch (selectedDuration) {
+                case 1: amount = 62; break;
+                case 7: amount = 434; break;
+                case 30: amount = 1860; break;
+            }
+
+            // For demo purposes, simulate payment processing
+            setTimeout(() => {
+                // Extend subscription
+                let sub = JSON.parse(localStorage.getItem("subscription"));
+                let expiry = sub ? new Date(sub.expiry) : new Date();
+                expiry.setDate(expiry.getDate() + selectedDuration);
+
+                localStorage.setItem("subscription", JSON.stringify({
+                    start: sub ? sub.start : new Date().toISOString(),
+                    expiry: expiry.toISOString(),
+                    type: "paid"
+                }));
+
+                // Generate transaction ID
+                let transactionId = "TXN" + Date.now().toString().substr(-8);
+                document.getElementById('transaction-id').textContent = transactionId;
+
+                // Save transaction record
+                saveTransactionRecord(amount, transactionId);
+
+                // Show success message
+                document.getElementById('duration-selection').style.display = 'none';
+                document.getElementById('payment-success').style.display = 'block';
+
+                paymentInProgress = false;
+            }, 1500);
+        }
+
+        // Save transaction record (for demo, using localStorage)
+        function saveTransactionRecord(amount, transactionId) {
+            let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+            transactions.push({
+                id: transactionId,
+                date: new Date().toISOString(),
+                amount: amount,
+                method: selectedPaymentMethod,
+                duration: selectedDuration
+            });
+            localStorage.setItem("transactions", JSON.stringify(transactions));
+        }
+
+        // Back to payment method selection
+        function backToMethod() {
+            document.getElementById('duration-selection').style.display = 'none';
+            document.getElementById('method-selection').style.display = 'block';
+            selectedDuration = null;
+            document.getElementById('pay-btn').disabled = true;
+        }
+
+        // Reset payment modal to initial state
+        function resetPaymentModal() {
+            selectedPaymentMethod = null;
+            selectedDuration = null;
+            paymentInProgress = false;
+
+            // Reset UI
+            document.getElementById('method-selection').style.display = 'block';
+            document.getElementById('duration-selection').style.display = 'none';
+            document.getElementById('payment-success').style.display = 'none';
+
+            // Reset buttons
+            document.getElementById('continue-btn').disabled = true;
+            document.getElementById('pay-btn').disabled = true;
+
+            // Remove active classes
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.duration-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Hide all payment details
+            document.querySelectorAll('.payment-details').forEach(el => {
+                el.style.display = 'none';
+            });
+        }
+
+        // Close payment popup
+        function closePopup() {
+            document.getElementById("payment-popup").style.display = "none";
+            loadSubscription(); // Refresh subscription status
+        }
+
+        // Initialize on page load
+        window.onload = loadSubscription;
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('payment-popup');
+            if (event.target === modal) {
+                closePopup();
+            }
+        };
+    </script>
+
+</body>
+
+</html>
